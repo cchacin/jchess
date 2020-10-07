@@ -10,21 +10,23 @@
         <version>40</version>
     </parent>
 
-    <groupId>my-project</groupId>
-    <artifactId>my-project</artifactId>
+    <groupId>io.github.cchacin</groupId>
+    <artifactId>jchess</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>My Project Name</name>
+    <name>JChess</name>
          
     <scm>
-        <developerConnection>scm:git:git@github.com:cchacin/PROJECT.git</developerConnection>
-        <connection>scm:git:git@github.com:cchacin/PROJECT.git</connection>
-        <url>https://github.com/cchacin/PROJECT</url>
+        <developerConnection>scm:git:git@github.com:cchacin/jchess.git</developerConnection>
+        <connection>scm:git:git@github.com:cchacin/jchess.git</connection>
+        <url>https://github.com/cchacin/jchess</url>
         <tag>HEAD</tag>
     </scm>
 
     <properties>
         <maven.compiler.release>15</maven.compiler.release>
+        <javac.src.version>${maven.compiler.release}</javac.src.version>
+        <javac.target.version>${maven.compiler.release}</javac.target.version>
 
         <junit.version>5.7.0</junit.version>
         <assertj.version>3.17.2</assertj.version>
