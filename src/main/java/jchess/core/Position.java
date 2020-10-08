@@ -1,4 +1,4 @@
-package jchess;
+package jchess.core;
 
 import java.util.Optional;
 
@@ -6,13 +6,13 @@ public record Position(
         int row,
         int column) {
 
-    static Position of(
+    public static Position of(
             final int row,
             final int column) {
         return new Position(row, column);
     }
 
-    Optional<Position> plus(
+    public Optional<Position> plus(
             final Position position) {
         final var newPosition = Position.of(
                 this.row() + position.row(),

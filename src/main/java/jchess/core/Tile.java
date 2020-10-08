@@ -1,4 +1,4 @@
-package jchess;
+package jchess.core;
 
 import java.util.Optional;
 

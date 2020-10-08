@@ -1,10 +1,10 @@
-package jchess;
+package jchess.core;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import static jchess.Tile.Color;
+import static jchess.core.Tile.Color;
 
 public record Board(
         Tile[][] tiles) {
