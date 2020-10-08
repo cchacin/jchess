@@ -1,4 +1,4 @@
-package jchess;
+package jchess.core;
 
 public enum Alliance {
     BLACK,

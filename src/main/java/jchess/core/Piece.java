@@ -1,7 +1,8 @@
-package jchess;
+package jchess.core;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public interface Piece {
     Alliance alliance();
