@@ -1,9 +1,6 @@
 package jchess.core;
 
 
-import jchess.core.Alliance;
-import jchess.core.Piece;
-import jchess.core.Position;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
 

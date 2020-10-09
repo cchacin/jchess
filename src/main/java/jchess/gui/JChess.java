@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import jchess.gui.main.MainView;
-import jchess.gui.tile.TileView;
 
 public class JChess extends Application {
 

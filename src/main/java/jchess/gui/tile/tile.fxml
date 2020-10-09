@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:id="anchorPane"
-            fx:controller="jchess.gui.tile.TilePresenter" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" >
-</AnchorPane>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="jchess.gui.tile.TilePresenter"
+      maxHeight="100.0"
+      maxWidth="100.0"
+      onMousePressed="#onMousePressed"
+      onMouseReleased="#onMouseReleased">
+    <Rectangle fx:id="rectangle"
+               height="100.0"
+               width="100.0"
+    />
+    <ImageView fx:id="imageView"
+               fitHeight="100.0"
+               fitWidth="100.0"
+               pickOnBounds="true"
+               preserveRatio="true"
+    />
+</Pane>

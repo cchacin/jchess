@@ -4,9 +4,9 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
-import jchess.gui.Game;
+import javafx.scene.layout.GridPane;
 import jchess.core.Board;
+import jchess.gui.Game;
 import jchess.gui.tile.TilePresenter;
 import jchess.gui.tile.TileView;
 
@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
 public class BoardPresenter implements Initializable {
 
     @FXML
-    AnchorPane boardPane;
+    GridPane boardPane;
 
     private final ObjectProperty<Board> boardProperty = new SimpleObjectProperty<>();
 
@@ -33,14 +33,14 @@ public class BoardPresenter implements Initializable {
                                 column -> {
                                     final var tileView = new TileView();
                                     final var tilePresenter = (TilePresenter) tileView.getPresenter();
-                                    tilePresenter.tileProperty().set(tiles[row][column]);
-                                    this.boardPane.getChildren().add(tileView.getView());
+                                    tilePresenter.tilePropertyProperty().set(tiles[row][column]);
+                                    this.boardPane.add(tileView.getView(), column, row);
                                 }
                         )
                 );
             }
         });
-        this.boardProperty.set(Game.board.get());
+        this.boardProperty.set(Game.BOARD_REFERENCE.get());
     }
 
     public ObjectProperty<Board> boardProperty() {
