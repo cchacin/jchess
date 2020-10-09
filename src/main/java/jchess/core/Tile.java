@@ -1,6 +1,8 @@
 package jchess.core;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public interface Tile {
     Position position();
@@ -8,6 +10,8 @@ public interface Tile {
     Color color();
 
     Optional<Piece> piece();
+
+    Set<Position> possibleMoves(Board board);
 
     static Tile empty(
             final Position position,
@@ -26,7 +30,7 @@ public interface Tile {
 
     enum Color {
         BLACK,
-        WHITE;
+        WHITE
     }
 
     record OccupiedTile(
@@ -44,6 +48,18 @@ public interface Tile {
         public String toString() {
             return this.color().toString().charAt(0) + " " + piece.get().getClass().getSimpleName().charAt(0);
         }
+
+        @Override
+        public Set<Position> possibleMoves(
+                final Board board) {
+            return piece.get().possibleMoves()
+                    .stream()
+                    .map(position -> position.plus(this.position()))
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .filter(position -> board.tiles()[position.row()][position.column()].piece().isEmpty())
+                    .collect(Collectors.toSet());
+        }
     }
 
     record EmptyTile(
@@ -53,6 +69,12 @@ public interface Tile {
         @Override
         public Optional<Piece> piece() {
             return Optional.empty();
+        }
+
+        @Override
+        public Set<Position> possibleMoves(
+                final Board board) {
+            return Set.of();
         }
 
         static EmptyTile create(

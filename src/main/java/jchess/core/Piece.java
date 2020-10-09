@@ -2,12 +2,15 @@ package jchess.core;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public interface Piece {
     Alliance alliance();
 
     Set<Position> possibleMoves();
+
+    default String getImageName() {
+        return "/images/" + alliance().name() + "_" + getClass().getSimpleName().toUpperCase() + ".png";
+    }
 
     record Knight(Alliance alliance) implements Piece {
         static final Set<Position> POSSIBLE_MOVES = Set.of(

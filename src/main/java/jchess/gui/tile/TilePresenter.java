@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import jchess.core.Tile;
@@ -18,7 +17,10 @@ import java.util.ResourceBundle;
 public class TilePresenter implements Initializable {
 
     @FXML
-    AnchorPane anchorPane;
+    ImageView imageView;
+
+    @FXML
+    Rectangle rectangle;
 
     private final ObjectProperty<Tile> tileProperty = new SimpleObjectProperty<>();
 
@@ -26,49 +28,35 @@ public class TilePresenter implements Initializable {
     public void initialize(
             final URL url,
             final ResourceBundle resourceBundle) {
-        this.tileProperty.addListener((observableValue, oldTile, newTile) -> {
-            if (newTile != null) {
-                final var originalColor = newTile.color() == Tile.Color.WHITE ? Color.WHITE : Color.DIMGRAY;
-                final var rectangle = new Rectangle(
-                        newTile.position().column() * 100,
-                        newTile.position().row() * 100,
-                        100,
-                        100
-                );
-                rectangle.setFill(originalColor);
-                this.anchorPane.getChildren().add(rectangle);
-                newTile.piece().ifPresent(piece -> {
-                    final var image = new Image("/images/" + piece.alliance().name() + "_" + piece.getClass().getSimpleName().toUpperCase() + ".png");
-                    final var imageView = new ImageView(image);
-                    imageView.setFitWidth(100);
-                    imageView.setFitHeight(100);
-                    imageView.setX(newTile.position().column() * 100);
-                    imageView.setY(newTile.position().row() * 100);
-                    this.anchorPane.getChildren().add(imageView);
-                });
-            }
-        });
+        this.tileProperty.addListener(
+                (observableValue, oldTile, newTile) -> {
+                    fillRectangle(newTile);
+                    newTile.piece().ifPresent(piece -> this.imageView.setImage(new Image(piece.getImageName())));
+                }
+        );
     }
 
-    public ObjectProperty<Tile> tileProperty() {
+    private void fillRectangle(
+            final Tile tile) {
+        final var originalColor = tile.color() == Tile.Color.WHITE
+                ? Color.WHITE
+                : Color.DIMGRAY;
+        this.rectangle.setFill(originalColor);
+    }
+
+    public ObjectProperty<Tile> tilePropertyProperty() {
         return tileProperty;
     }
 
-    public void onMousePressed(
+    @FXML
+    private void onMousePressed(
             final MouseEvent mouseEvent) {
-//        final var tile = this.tileProperty.get();
-//        tile.piece().ifPresent(piece -> {
-//            piece.possibleMoves()
-//                    .stream()
-//                    .map(position -> position.plus(tile.position()))
-//                    .filter(Optional::isPresent)
-//                    .map(Optional::get)
-//                    .filter(position -> this.boardProperty.get().tiles()[position.row()][position.column()].piece().isEmpty())
-//                    .forEach(position -> this.boardProperty.get().tiles()[position.row()][position.column()].activate());
-//        });
+        final var tile = this.tileProperty.get();
+        tile.piece().ifPresent(System.out::println);
     }
 
-    public void onMouseReleased(
+    @FXML
+    private void onMouseReleased(
             final MouseEvent mouseEvent) {
     }
 }
