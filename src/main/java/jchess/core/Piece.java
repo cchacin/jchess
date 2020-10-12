@@ -4,15 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public interface Piece {
-    Alliance alliance();
+    Player player();
 
     Set<Position> possibleMoves();
 
     default String getImageName() {
-        return "/images/" + alliance().name() + "_" + getClass().getSimpleName().toUpperCase() + ".png";
+        return "/images/" + player().alliance().name() + "_" + getClass().getSimpleName().toUpperCase() + ".png";
     }
 
-    record Knight(Alliance alliance) implements Piece {
+    record Knight(Player player) implements Piece {
         static final Set<Position> POSSIBLE_MOVES = Set.of(
                 Position.of(2, 1),
                 Position.of(2, -1),
@@ -25,8 +25,8 @@ public interface Piece {
         );
 
         static Knight create(
-                final Alliance alliance) {
-            return new Knight(alliance);
+                final Player player) {
+            return new Knight(player);
         }
 
         @Override
@@ -35,7 +35,7 @@ public interface Piece {
         }
     }
 
-    record King(Alliance alliance) implements Piece {
+    record King(Player player) implements Piece {
 
         static final Set<Position> POSSIBLE_MOVES = Set.of(
                 Position.of(1, 0),
@@ -49,8 +49,8 @@ public interface Piece {
         );
 
         static King create(
-                final Alliance alliance) {
-            return new King(alliance);
+                final Player player) {
+            return new King(player);
         }
 
         @Override
@@ -59,11 +59,11 @@ public interface Piece {
         }
     }
 
-    record Queen(Alliance alliance) implements Piece {
+    record Queen(Player player) implements Piece {
 
         static Queen create(
-                final Alliance alliance) {
-            return new Queen(alliance);
+                final Player player) {
+            return new Queen(player);
         }
 
         @Override
@@ -75,7 +75,7 @@ public interface Piece {
         }
     }
 
-    record Rook(Alliance alliance) implements Piece {
+    record Rook(Player player) implements Piece {
 
         static final Set<Position> POSSIBLE_MOVES = Set.of(
                 Position.of(0, 1),
@@ -109,8 +109,8 @@ public interface Piece {
         );
 
         static Rook create(
-                final Alliance alliance) {
-            return new Rook(alliance);
+                final Player player) {
+            return new Rook(player);
         }
 
         @Override
@@ -119,7 +119,7 @@ public interface Piece {
         }
     }
 
-    record Bishop(Alliance alliance) implements Piece {
+    record Bishop(Player player) implements Piece {
 
         static final Set<Position> POSSIBLE_MOVES = Set.of(
                 Position.of(1, 1),
@@ -139,8 +139,8 @@ public interface Piece {
         );
 
         static Bishop create(
-                final Alliance alliance) {
-            return new Bishop(alliance);
+                final Player player) {
+            return new Bishop(player);
         }
 
         @Override
@@ -149,7 +149,7 @@ public interface Piece {
         }
     }
 
-    record Pawn(Alliance alliance) implements Piece {
+    record Pawn(Player player) implements Piece {
 
         static final Set<Position> POSSIBLE_MOVES = Set.of(
                 Position.of(1, 1),
@@ -159,8 +159,8 @@ public interface Piece {
         );
 
         static Pawn create(
-                final Alliance alliance) {
-            return new Pawn(alliance);
+                final Player player) {
+            return new Pawn(player);
         }
 
         @Override
@@ -168,4 +168,5 @@ public interface Piece {
             return Set.copyOf(POSSIBLE_MOVES);
         }
     }
+
 }

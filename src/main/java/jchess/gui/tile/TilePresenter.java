@@ -39,7 +39,7 @@ public class TilePresenter implements Initializable {
     private void fillRectangle(
             final Tile tile) {
         final var originalColor = tile.color() == Tile.Color.WHITE
-                ? Color.WHITE
+                ? Color.LIGHTGREEN
                 : Color.DIMGRAY;
         this.rectangle.setFill(originalColor);
     }

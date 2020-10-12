@@ -3,6 +3,7 @@ package jchess.gui.main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import jchess.core.Game;
 import jchess.gui.board.BoardPresenter;
 import jchess.gui.board.BoardView;
 
@@ -22,6 +23,8 @@ public class MainPresenter implements Initializable {
             final ResourceBundle resourceBundle) {
         final var boardView = new BoardView();
         this.boardPresenter = (BoardPresenter) boardView.getPresenter();
+        final var game = new Game();
+        this.boardPresenter.boardProperty().set(game.getBoard());
         main.getChildren().add(boardView.getView());
     }
 }
