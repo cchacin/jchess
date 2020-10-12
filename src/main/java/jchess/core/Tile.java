@@ -14,17 +14,16 @@ public interface Tile {
     Set<Position> possibleMoves(Board board);
 
     static Tile empty(
-            final Position position,
-            final Color color) {
-        return create(null, position, color);
+            final Position position) {
+        return Tile.create(Optional.empty(), position);
     }
 
     static Tile create(
-            final Piece piece,
-            final Position position,
-            final Color color) {
+            final Optional<Piece> piece,
+            final Position position) {
+        Color color = (position.row() + position.column()) % 2 == 0 ? Color.WHITE : Color.BLACK;
         return piece != null ?
-                OccupiedTile.create(Optional.of(piece), position, color) :
+                OccupiedTile.create(piece, position, color) :
                 EmptyTile.create(position, color);
     }
 
@@ -36,12 +35,12 @@ public interface Tile {
     record OccupiedTile(
             Optional<Piece> piece,
             Position position,
-            Color color) implements Tile {
-        static OccupiedTile create(
+            Tile.Color color) implements Tile {
+        static Tile.OccupiedTile create(
                 final Optional<Piece> piece,
                 final Position position,
-                final Color color) {
-            return new OccupiedTile(piece, position, color);
+                final Tile.Color color) {
+            return new Tile.OccupiedTile(piece, position, color);
         }
 
         @Override
@@ -57,14 +56,14 @@ public interface Tile {
                     .map(position -> position.plus(this.position()))
                     .filter(Optional::isPresent)
                     .map(Optional::get)
-                    .filter(position -> board.tiles()[position.row()][position.column()].piece().isEmpty())
+                    .filter(position -> board.pieces().containsKey(position))
                     .collect(Collectors.toSet());
         }
     }
 
     record EmptyTile(
             Position position,
-            Color color) implements Tile {
+            Tile.Color color) implements Tile {
 
         @Override
         public Optional<Piece> piece() {
@@ -77,10 +76,10 @@ public interface Tile {
             return Set.of();
         }
 
-        static EmptyTile create(
+        static Tile.EmptyTile create(
                 final Position position,
-                final Color color) {
-            return new EmptyTile(position, color);
+                final Tile.Color color) {
+            return new Tile.EmptyTile(position, color);
         }
 
         @Override
