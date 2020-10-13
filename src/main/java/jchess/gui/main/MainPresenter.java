@@ -24,7 +24,7 @@ public class MainPresenter implements Initializable {
         final var boardView = new BoardView();
         this.boardPresenter = (BoardPresenter) boardView.getPresenter();
         final var game = new Game();
-        this.boardPresenter.boardProperty().set(game.getBoard());
+        this.boardPresenter.getTilesObservable().putAll(game.getTiles());
         main.getChildren().add(boardView.getView());
     }
 }
